@@ -7,8 +7,9 @@ from bs4 import BeautifulSoup
 
 
 class ResultPage():
-    doc_links = []
-    previews = []
+    def __init__(self):
+        self.doc_links = []
+        self.previews = []
 
     @staticmethod
     def get_scripts(url):
@@ -32,7 +33,7 @@ class ResultPage():
         for doc in doc_list:
             doc_links.append(doc['reader_url'])
 
-        cls.create(doc_links=doc_links)
+        page = cls(doc_links=doc_links)
 
     def fetch_previews(self):
         """Scrape doc_links for preview image links"""
