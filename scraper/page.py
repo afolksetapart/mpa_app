@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup
 
 
 class ResultPage():
-    doc_links = []
 
     @classmethod
     def get_documents(cls, url):
@@ -26,4 +25,4 @@ class ResultPage():
         for doc in doc_list:
             doc_links.append(doc['reader_url'])
 
-        cls.create(doc_links=doc_links)
+        return doc_links
