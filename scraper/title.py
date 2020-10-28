@@ -10,7 +10,7 @@ class Title():
     def parse_record(cls, row):
         """Creates a clean Title obj from CSV record(row)"""
         title_key = ''.join(chr.lower()
-                            for word in row['TITLE'] if chr.isalnum())
+                            for chr in row['TITLE'] if chr.isalnum())
         from_keys = row['FROM/COMPOSER'].lower().split('/')
         title = row['TITLE']
         from_comp = row['FROM/COMPOSER']

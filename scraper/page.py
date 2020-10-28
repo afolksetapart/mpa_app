@@ -41,11 +41,9 @@ class ResultPage():
             scripts = get_scripts(doc)
             json_script = str(scripts[-6])
             json_re = re.search(
-                r'{"currentPage":{"contentType":"document"(.*)"eligible_for_seo_lightbox"', json_script)
+                r'"thumbnail_url":(.*),"title":', json_script)
             if json_re != None:
-                json_raw = (json_re.group(0)[:-28] + "}").strip()
-                processed_json = json.loads(json_raw)
-                img_url = processed_json['body_props']['sharing_buttons_props']['thumbnail_url']
+                img_url = json_re.group(1)[1:-1]
                 self.previews.append(img_url)
             else:
                 continue

@@ -9,6 +9,7 @@ autopep8 = "*"
 [packages]
 beautifulsoup4 = "*"
 requests = "*"
+google-cloud-vision = "*"
 
 [requires]
 python_version = "3.8"
