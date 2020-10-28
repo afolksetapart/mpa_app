@@ -12,6 +12,7 @@ class ResultPage():
 
     @staticmethod
     def get_scripts(url):
+        """Requests URL and returns all script tags"""
         page = requests.get(url)
         soup = BeautifulSoup(page.content, 'html.parser')
         return soup.find_all('script')
