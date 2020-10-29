@@ -10,9 +10,9 @@ class Candidate():
     @staticmethod
     def api_error_handler(response):
         """Handles an error from the Google Vision API"""
-        raise Exception(
+        print(
             '{}\nFor more info on error messages, check: '
-            'https://cloud.google.com/apis/design/errors'.format(
+            'https://cloud.google.com/apis/design/errors\n'.format(
                 response))
 
     @classmethod
@@ -33,8 +33,10 @@ class Candidate():
                                 for chr in text.text if chr.isalnum())
 
         if label_response.error.message:
+            print(f"Error URL = {c.preview_url}")
             c.api_error_handler(label_response.error.message)
         elif text_response.error.message:
+            print(f"Error URL = {c.preview_url}")
             c.api_error_handler(text_response.error.message)
 
         c.labels = label_list

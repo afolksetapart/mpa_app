@@ -42,9 +42,9 @@ class ResultPage():
             scripts = self.get_scripts(result.doc_link)
             json_script = str(scripts[-6])
             json_re = re.search(
-                r'"thumbnail_url":(.*),"title":', json_script)
+                r"\"thumbnail_url\":\"(.[^\"]*)", json_script)
             if json_re != None:
-                img_url = json_re.group(1)[1:-1]
+                img_url = json_re.group(1)
                 result.preview = img_url
             else:
                 continue
