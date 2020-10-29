@@ -47,29 +47,40 @@ class ScribSearch():
                     'RATING': rating})
 
     def execute(self):
-        """Load results and commit if result found"""
-        print(f"searching for title '{self.title.title}'...\n")
-        checked = 0
+        """Load results and commit if result found. 
+        If 42 results (in a row) receive a score <= 1, the next title is considered."""
+        ignored = 0
 
         for query in self.queries:
-            print("executing search...\n")
-            rp = ResultPage.get_documents(query)
-            print("scraping for image preview urls...\n")
-            rp.fetch_previews()
+            if ignored < 42:
+                ignored = 0
+                header()
+                print(f"searching for title '{self.title.title}'...\n")
+                print(
+                    f"scraping page {self.queries.index(query) + 1} for results...\n")
+                rp = ResultPage.get_documents(query)
+                print("scraping results for image preview urls...\n")
+                rp.fetch_previews()
 
-            print(
-                f"anylizing images on page {self.queries.index(query) + 1}...\n")
-            for r in rp.results:
-                if r.preview == None:
-                    continue
-                else:
-                    cand = Candidate.evaluate(r.preview)
-                    arb = Arbiter.compare(self.title, cand)
-
-                    if arb.determine():
-                        checked = 0
-                        print(
-                            "\n[[ Match Found (I should be written to the CSV! ) ]]\n")
-                        self.commit(arb.accuracy, r.doc_link)
-                    else:
+                print(
+                    f"analyzing images on page {self.queries.index(query) + 1}...\n")
+                for r in rp.results:
+                    if r.preview == None:
+                        ignored += 1
                         continue
+                    else:
+                        cand = Candidate.evaluate(r.preview)
+                        arb = Arbiter.compare(self.title, cand)
+
+                        if arb.determine():
+                            print(
+                                "match found...")
+                            self.commit(arb.accuracy, r.doc_link)
+                            if arb.accuracy == 1:
+                                ignored += 1
+                        else:
+                            ignored += 1
+                            continue
+                print("\n")
+            else:
+                break
