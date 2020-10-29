@@ -3,13 +3,14 @@ import re
 import requests
 import urllib.parse
 
+from scraper.result import Result
+
 from bs4 import BeautifulSoup
 
 
 class ResultPage():
     def __init__(self):
-        self.doc_links = []
-        self.previews = []
+        self.results = []
 
     @staticmethod
     def get_scripts(url):
@@ -21,6 +22,7 @@ class ResultPage():
     @classmethod
     def get_documents(cls, url):
         """Scrape for individual document links"""
+        page = cls()
         scripts = get_scripts(url)
         json_script = str(scripts[-4])
         json_re = re.search(
@@ -29,21 +31,20 @@ class ResultPage():
         processed_json = json.loads(json_raw)
         doc_list = processed_json['documents']['content']['documents']
 
-        doc_links = []
         for doc in doc_list:
-            doc_links.append(doc['reader_url'])
+            page.results.append(Result(doc_link=doc['reader_url']))
 
-        page = cls(doc_links=doc_links)
+        return page
 
     def fetch_previews(self):
         """Scrape doc_links for preview image links"""
-        for doc in self.doc_links:
-            scripts = get_scripts(doc)
+        for result in self.results:
+            scripts = get_scripts(result.doc_link)
             json_script = str(scripts[-6])
             json_re = re.search(
                 r'"thumbnail_url":(.*),"title":', json_script)
             if json_re != None:
                 img_url = json_re.group(1)[1:-1]
-                self.previews.append(img_url)
+                result.preview.append(img_url)
             else:
                 continue
