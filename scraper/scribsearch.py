@@ -48,10 +48,17 @@ class ScribSearch():
 
     def execute(self):
         """Load results and commit if result found"""
+        print(f"searching for title '{self.title.title}'...\n")
+        checked = 0
+
         for query in self.queries:
+            print("executing search...\n")
             rp = ResultPage.get_documents(query)
+            print("scraping for image preview urls...\n")
             rp.fetch_previews()
 
+            print(
+                f"anylizing images on page {self.queries.index(query) + 1}...\n")
             for r in rp.results:
                 if r.preview == None:
                     continue
@@ -60,6 +67,7 @@ class ScribSearch():
                     arb = Arbiter.compare(self.title, cand)
 
                     if arb.determine():
+                        checked = 0
                         print(
                             "\n[[ Match Found (I should be written to the CSV! ) ]]\n")
                         self.commit(arb.accuracy, r.doc_link)

@@ -32,9 +32,6 @@ class Candidate():
         compiled_text = ''.join(chr.lower()
                                 for chr in text.text if chr.isalnum())
 
-        print(label_list)
-        print(compiled_text)
-
         if label_response.error.message:
             api_error_handler(label_response.error.message)
         elif text_response.error.message:
