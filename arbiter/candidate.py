@@ -13,7 +13,7 @@ class Candidate():
         raise Exception(
             '{}\nFor more info on error messages, check: '
             'https://cloud.google.com/apis/design/errors'.format(
-                response.error.message))
+                response))
 
     @classmethod
     def evaluate(cls, uri):
@@ -33,9 +33,9 @@ class Candidate():
                                 for chr in text.text if chr.isalnum())
 
         if label_response.error.message:
-            api_error_handler(label_response.error.message)
+            c.api_error_handler(label_response.error.message)
         elif text_response.error.message:
-            api_error_handler(text_response.error.message)
+            c.api_error_handler(text_response.error.message)
 
         c.labels = label_list
         c.text = compiled_text
