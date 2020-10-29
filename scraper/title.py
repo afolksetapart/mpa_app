@@ -1,10 +1,10 @@
 class Title():
-    def __init__(self):
-        self.title_key = None
-        self.from_keys = None
-        self.title = None
-        self.from_comp = None
-        self.claim = None
+    def __init__(self, title_key, from_keys, title, from_comp, claim):
+        self.title_key = title_key
+        self.from_keys = from_keys
+        self.title = title
+        self.from_comp = from_comp
+        self.claim = claim
 
     @classmethod
     def parse_record(cls, row):
