@@ -1,6 +1,7 @@
 import csv
 
-import arbiter
+from arbiter.arbiter import Arbiter
+from arbiter.candidate import Candidate
 from scraper.page import ResultPage
 from scraper.title import Title
 
@@ -25,7 +26,7 @@ class ScribSearch():
         while pg_num < 11:
             search.queries.append(
                 (f'https://www.scribd.com/search?content_type'
-                 '=documents&page={pg_num}&query={url_name}&language=1'))
+                 f'=documents&page={pg_num}&query={url_name}&language=1'))
             pg_num += 1
 
         return search
@@ -38,12 +39,12 @@ class ScribSearch():
             writer = csv.DictWriter(report, fieldnames=fieldnames)
             if report.tell() == 0:
                 writer.writeheader()
-                writer.writerow(
-                    {'TITLE': self.title.title,
-                     'FROM/COMPOSER': self.title.from_comp,
-                     'URL': f"\"{link}\"",
-                     'CLAIM': self.title.claim,
-                     'REVIEW': rating})
+            writer.writerow(
+                {'TITLE': self.title.title,
+                    'FROM/COMPOSER': self.title.from_comp,
+                    'URL': f"\"{link}\"",
+                    'CLAIM': self.title.claim,
+                    'RATING': rating})
 
     def execute(self):
         """Load results and commit if result found"""
@@ -51,11 +52,16 @@ class ScribSearch():
             rp = ResultPage.get_documents(query)
             rp.fetch_previews()
 
-            for result in rp.results:
-                candidate = arbiter.Candidate.evaluate(result.preview)
-                arb = arbiter.Arbiter.compare(self.title, candidate)
-
-                if arb.determine():
-                    self.commit(arb.accuracy, result.doc_link)
-                else:
+            for r in rp.results:
+                if r.preview == None:
                     continue
+                else:
+                    cand = Candidate.evaluate(r.preview)
+                    arb = Arbiter.compare(self.title, cand)
+
+                    if arb.determine():
+                        print(
+                            "\n[[ Match Found (I should be written to the CSV! ) ]]\n")
+                        self.commit(arb.accuracy, r.doc_link)
+                    else:
+                        continue

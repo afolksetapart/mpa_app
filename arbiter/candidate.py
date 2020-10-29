@@ -16,9 +16,10 @@ class Candidate():
 
     @classmethod
     def evaluate(cls, uri):
+        c = cls(preview_url=uri)
         client = vision.ImageAnnotatorClient()
         image = vision.Image()
-        image.source.image_uri = uri
+        image.source.image_uri = c.preview_url
 
         label_response = client.label_detection(image=image)
         text_response = client.text_detection(image=image)
@@ -29,9 +30,15 @@ class Candidate():
         compiled_text = ''.join(chr.lower()
                                 for chr in text.text if chr.isalnum())
 
+        print(label_list)
+        print(compiled_text)
+
         if label_response.error.message:
             api_error_handler(label_response.error.message)
         elif text_response.error.message:
             api_error_handler(text_response.error.message)
 
-        candidate = cls(preview_url=uri, labels=label_list, text=compiled_text)
+        c.labels = label_list
+        c.text = compiled_text
+
+        return c

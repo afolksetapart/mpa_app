@@ -1,4 +1,4 @@
 class Result():
-    def __init__(self, doc_link, preview=None):
+    def __init__(self, doc_link):
         self.doc_link = doc_link
-        self.preview = preview
+        self.preview = None

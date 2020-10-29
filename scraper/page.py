@@ -23,7 +23,7 @@ class ResultPage():
     def get_documents(cls, url):
         """Scrape for individual document links"""
         page = cls()
-        scripts = get_scripts(url)
+        scripts = page.get_scripts(url)
         json_script = str(scripts[-4])
         json_re = re.search(
             r'{"documents":{"content":{"documents":(.*)}}}}', json_script)
@@ -39,12 +39,12 @@ class ResultPage():
     def fetch_previews(self):
         """Scrape doc_links for preview image links"""
         for result in self.results:
-            scripts = get_scripts(result.doc_link)
+            scripts = self.get_scripts(result.doc_link)
             json_script = str(scripts[-6])
             json_re = re.search(
                 r'"thumbnail_url":(.*),"title":', json_script)
             if json_re != None:
                 img_url = json_re.group(1)[1:-1]
-                result.preview.append(img_url)
+                result.preview = img_url
             else:
                 continue
