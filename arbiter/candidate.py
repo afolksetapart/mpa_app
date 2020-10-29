@@ -9,6 +9,7 @@ class Candidate():
 
     @staticmethod
     def api_error_handler(response):
+        """Handles an error from the Google Vision API"""
         raise Exception(
             '{}\nFor more info on error messages, check: '
             'https://cloud.google.com/apis/design/errors'.format(
@@ -16,6 +17,7 @@ class Candidate():
 
     @classmethod
     def evaluate(cls, uri):
+        """Sends preview image to Google Vision API and retrieves labels and text(compiled)"""
         c = cls(preview_url=uri)
         client = vision.ImageAnnotatorClient()
         image = vision.Image()

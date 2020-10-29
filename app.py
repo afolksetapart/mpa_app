@@ -1,10 +1,14 @@
 # TODO: add docstrings, add print statements
 
 import csv
+import os
 from scraper.scribsearch import ScribSearch
+from helpers import header
+
 
 if __name__ == "__main__":
     with open('titles.csv') as titles:
+        header()
         title_reader = csv.DictReader(titles)
         title_list = list(title_reader)
 

@@ -6,14 +6,10 @@ class Arbiter():
 
     @classmethod
     def compare(cls, title, candidate):
+        """Compares a Title/Candidate object and scores the result"""
         arbiter = cls(title=title, candidate=candidate)
         t = arbiter.title
         c = arbiter.candidate
-
-        # print(f"Image being evaluated: {c.preview_url}")
-        # print(f"Labels being evaluated: {c.labels}")
-        # print(f"Title key: {t.title_key}")
-        # print(f"From Keys: {t.from_keys}")
 
         if "Sheet music" in c.labels or "Music" in c.labels:
             if t.title_key in c.text:
@@ -28,12 +24,11 @@ class Arbiter():
 
             if "medley" in c.text:
                 arbiter.accuracy = 0
-            # print(f"Score: {arbiter.accuracy}\n\n")
+
         return arbiter
 
-        # print "no match"
-
     def determine(self):
+        """Determines if score is high enough to return a True value (match found)"""
         if self.accuracy >= 1.0:
             return True
         else:

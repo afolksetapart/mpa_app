@@ -1,5 +1,6 @@
 import csv
 
+from helpers import header
 from arbiter.arbiter import Arbiter
 from arbiter.candidate import Candidate
 from scraper.page import ResultPage
@@ -28,7 +29,6 @@ class ScribSearch():
                 (f'https://www.scribd.com/search?content_type'
                  f'=documents&page={pg_num}&query={url_name}&language=1'))
             pg_num += 1
-
         return search
 
     def commit(self, rating, link):
