@@ -11,7 +11,7 @@ Each image preview is sent to the Google Vision API, which returns a list of lab
 
 If the document scores highly enough, the program will write all data from the original row related to each title (along with a URL for the infringing upload) to a new CSV, one row for each infringement.
 
-## In Use
+## To Run
 
 *(This project requires you to have pipenv installed)*
 
@@ -20,9 +20,12 @@ Install all project dependencies by navigating to the route directory and runnin
 pipenv install
 ```
 
+
 *(This project requires GOOGLE_APPLICATION_CREDENTIALS)*
 
 Learn more [here](https://cloud.google.com/vision).
+
+
 
 ## Built With
 
