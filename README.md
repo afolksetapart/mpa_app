@@ -1,7 +1,7 @@
 # Sheet Scraper
 ### A Web-Scraping Copyright Infringement App Built for the Music Publishers Association
 
-Sheet Scraper is a web-scraping CLI that takes a CSV of Disney sheet music titles (provided by the Music Publishers Association) and scrapes the popular document upload site Scribd for illegal postings of copyrighted work. 
+Sheet Scraper is a web-scraping CLI that takes a CSV of sheet music titles (provided by the Music Publishers Association) and scrapes the popular document upload site Scribd for illegal postings of copyrighted work. 
 
 ## How It Works
 
