@@ -28,11 +28,13 @@ class ResultPage():
         json_re = re.search(
             r'{"documents":{"content":{"documents":(.*)}}}}', json_script)
         json_raw = json_re.group(0).strip()
-        processed_json = json.loads(json_raw)
-        doc_list = processed_json['documents']['content']['documents']
-
-        for doc in doc_list:
-            page.results.append(Result(doc_link=doc['reader_url']))
+        try:
+            processed_json = json.loads(json_raw)
+            doc_list = processed_json['documents']['content']['documents']
+            for doc in doc_list:
+                page.results.append(Result(doc_link=doc['reader_url']))
+        except json.JSONDecodeError:
+            pass
 
         return page
 
