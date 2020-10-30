@@ -25,7 +25,10 @@ pipenv install
 
 Learn more [here](https://cloud.google.com/vision).
 
-
+Run **app.py** from the root directory with:
+```
+$ python3 app.py
+```
 
 ## Built With
 
