@@ -19,6 +19,9 @@ class Arbiter():
                 if key in c.text:
                     arbiter.accuracy += .5
 
+            if "alfred" in c.text:
+                arbiter.accuracy += .5
+
             if "disney" in c.text:
                 arbiter.accuracy += .5
 
@@ -29,7 +32,7 @@ class Arbiter():
 
     def determine(self):
         """Determines if score is high enough to return a True value (match found)"""
-        if self.accuracy >= 1.0:
+        if self.accuracy >= 1.5:
             return True
         else:
             return False

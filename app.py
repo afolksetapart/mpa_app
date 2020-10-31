@@ -1,5 +1,3 @@
-# TODO: add docstrings, add print statements
-
 import csv
 import os
 from scraper.scribsearch import ScribSearch

@@ -1,4 +1,5 @@
 # Sheet Scraper
+
 ### A Web-Scraping Copyright Infringement App Built for the Music Publishers Association
 
 Sheet Scraper is a web-scraping CLI that takes a CSV of sheet music titles (provided by the Music Publishers Association) and scrapes the popular document upload site Scribd for illegal postings of copyrighted work. 
@@ -13,6 +14,7 @@ If the document scores highly enough, the program will write all data from the o
 
 ## To Run
 
+
 *(This project requires you to have pipenv installed)*
 
 Install all project dependencies by navigating to the route directory and running:
@@ -26,6 +28,7 @@ pipenv install
 Learn more [here](https://cloud.google.com/vision).
 
 Run **app.py** from the root directory with:
+
 ```
 $ python3 app.py
 ```
