@@ -42,7 +42,7 @@ class ScribSearch():
             writer.writerow(
                 {'TITLE': self.title.title,
                     'FROM/COMPOSER': self.title.from_comp,
-                    'URL': f"\"{link}\"",
+                    'URL': link,
                     'CLAIM': self.title.claim,
                     'RATING': rating})
 
