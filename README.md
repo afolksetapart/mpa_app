@@ -38,3 +38,5 @@ $ python3 app.py
 - Python 3.8.2
 - BeautifulSoup4
 - Google Cloud Vision API
+
+Copyright © 2020 afolksetapart
