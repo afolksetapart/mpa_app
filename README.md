@@ -34,6 +34,6 @@ $ python3 app.py
 
 ## Built With
 
-- Python
-- BeautifulSoup
+- Python 3.8.2
+- BeautifulSoup4
 - Google Cloud Vision API
